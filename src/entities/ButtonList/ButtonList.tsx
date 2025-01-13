@@ -15,8 +15,8 @@ interface ButtonListProps {
 
 const ButtonList: React.FC<ButtonListProps> = ({isPlaying, country}) => {
     return (
-        <div className={styles['button-list']}>
-            <div className={styles['button-list__left']}>
+        <div className={styles.buttonList}>
+            <div className={styles.buttonList__left}>
                 <SystemButton isText={false} textContent={country}>
                     <Flag/>
                 </SystemButton>
@@ -30,7 +30,7 @@ const ButtonList: React.FC<ButtonListProps> = ({isPlaying, country}) => {
                     :
                     <></>}
             </div>
-            <div className={styles['button-list__right']}>
+            <div className={styles.buttonList__right}>
                 <SystemButton isText={false} textContent={null}>
                     <Stats/>
                 </SystemButton>

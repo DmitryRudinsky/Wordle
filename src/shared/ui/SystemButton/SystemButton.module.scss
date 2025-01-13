@@ -1,6 +1,6 @@
 @import "/src/shared/global_styles/vars";
 
-.system-button{
+.systemButton{
   background-color: $bg_simple_color;
   border-radius: 7px;
   padding: 5px;
@@ -21,7 +21,7 @@
   }
   &:hover{
     background-color: #e6f3e6;
-    .system-button__text{
+    .systemButton__text{
       color: #57ac57;
     }
   }

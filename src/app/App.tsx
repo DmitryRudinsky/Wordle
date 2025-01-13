@@ -1,4 +1,3 @@
-import '../shared/global_styles/_global.scss'
 import Header from "../widgets/Header/Header.tsx";
 
 
@@ -6,7 +5,7 @@ import Header from "../widgets/Header/Header.tsx";
 function App() {
 
   return (
-    <main className='container'>
+    <main className='main'>
         <Header/>
     </main>
   )

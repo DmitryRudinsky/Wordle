@@ -9,10 +9,10 @@ interface SystemButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const SystemButton: React.FC<SystemButtonProps> = ({ children, isText, textContent, ...props }) => {
     return (
-        <button type='button' className={styles['system-button']} {...props}>
-            <div style={isText ? {padding: "7px 5px"} : {}} className={styles['system-button__inner']}>
+        <button type='button' className={styles.systemButton} {...props}>
+            <div style={isText ? {padding: "7px 5px"} : {}} className={styles.systemButton__inner}>
                 {children}
-                {textContent ? <p className={styles['system-button__text']}>{textContent}</p> : <></>}
+                {textContent ? <p className={styles.systemButton__text}>{textContent}</p> : <></>}
             </div>
         </button>
     );
