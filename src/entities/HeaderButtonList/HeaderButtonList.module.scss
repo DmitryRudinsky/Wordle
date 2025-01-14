@@ -1,0 +1,9 @@
+.buttonList{
+  display: flex;
+  justify-content: space-between;
+  &__left,
+  &__right{
+    display: flex;
+    align-items: center;
+  }
+}
