@@ -12,4 +12,13 @@ export default defineConfig({
             },
         }),
     ],
+    server: {
+        proxy: {
+            '/api': {
+                target: 'https://wordly.org',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, '')
+            }
+        }
+    }
 })
