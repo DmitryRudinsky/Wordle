@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import ButtonList from "../../entities/ButtonList/ButtonList.tsx";
+import HeaderButtonList from "../../entities/HeaderButtonList/HeaderButtonList.tsx";
 import styles from './Header.module.scss'
 import global from "../../shared/global_styles/_global.module.scss"
 
-const Header: React.FC = () => {
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+interface Header {
+    setWindow: React.Dispatch<React.SetStateAction<string>>;
+    window: string;
+}
 
-    const Switch = () => {
-        setIsPlaying(prev => !prev);
-    }
+const Header: React.FC<Header> = ({setWindow, window}) => {
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
     return (
         <header className={styles.header}>
             <div className={global.container}>
-                <ButtonList isPlaying={isPlaying} country='RU'/>
-                <button onClick={Switch}>ЗАЛУПА</button>
+                <HeaderButtonList setWindow={setWindow} window={window} isPlaying={isPlaying} country='RU'/>
             </div>
         </header>
     );
