@@ -3,10 +3,10 @@ import styles from './GameButtonList.module.scss'
 import GameButton from "../../shared/ui/GameButton/GameButton";
 
 interface GameButtonListInterface {
-    letterCount: number;
+    lettersCount: number;
 }
 
-const GameButtonList: React.FC<GameButtonListInterface> = ({letterCount}) => {
+const GameButtonList: React.FC<GameButtonListInterface> = ({lettersCount}) => {
 
     const numberOfAttempts = 6
 
@@ -15,7 +15,7 @@ const GameButtonList: React.FC<GameButtonListInterface> = ({letterCount}) => {
             <div className={styles.listInner}>
                 {Array.from({ length: numberOfAttempts }, (_, rowIndex) => (
                     <div key={rowIndex} className={styles.row}>
-                        {Array.from({ length: letterCount }, (_, colIndex) => (
+                        {Array.from({ length: lettersCount }, (_, colIndex) => (
                             <GameButton key={colIndex}/>
                         ))}
                     </div>
