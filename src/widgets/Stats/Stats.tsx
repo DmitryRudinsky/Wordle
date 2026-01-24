@@ -1,13 +1,13 @@
 import React from 'react';
 import classes from './Stats.module.scss'
 import global from '../../shared/global_styles/_global.module.scss'
-import Clue from "../../shared/ui/Clue/Clue";
+import { Clue } from "../../shared/ui/Clue/Clue";
 
-interface SettingsInterface {
+interface StatsProps {
     setWindow: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Settings: React.FC<SettingsInterface> = ({setWindow}) => {
+export const Stats: React.FC<StatsProps> = ({ setWindow }) => {
     return (
         <div className={classes.Stats}>
             <div className={global.container}>
@@ -18,5 +18,3 @@ const Settings: React.FC<SettingsInterface> = ({setWindow}) => {
         </div>
     );
 };
-
-export default Settings;

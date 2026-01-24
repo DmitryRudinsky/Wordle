@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 import styles from './Clue.module.scss'
 import Cross from '../../assets/cross.svg?react'
 
@@ -7,7 +7,7 @@ interface ClueInterface {
     setWindow: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Clue: React.FC<ClueInterface> = ({children, setWindow}) => {
+export const Clue: React.FC<ClueInterface> = ({ children, setWindow }) => {
     return (
         <div className={styles.clue}>
             {children}
@@ -17,5 +17,3 @@ const Clue: React.FC<ClueInterface> = ({children, setWindow}) => {
         </div>
     );
 };
-
-export default Clue;

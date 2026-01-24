@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './HeaderButtonList.module.scss';
-import SystemButton from "../../shared/ui/SystemButton/SystemButton.tsx";
+import { SystemButton } from "../../shared/ui/SystemButton/SystemButton";
 import AddIcon from './assets/add.svg?react';
 import Flag from './assets/RU.svg?react';
 import Stats from  './assets/stats.svg?react';
@@ -15,7 +15,7 @@ interface ButtonListProps {
     window: string;
 }
 
-const HeaderButtonList: React.FC<ButtonListProps> = ({isPlaying, country, setWindow, window}) => {
+export const HeaderButtonList: React.FC<ButtonListProps> = ({ isPlaying, country, setWindow, window }) => {
     return (
         <div className={styles.buttonList}>
             <div className={styles.buttonList__left}>
@@ -46,5 +46,3 @@ const HeaderButtonList: React.FC<ButtonListProps> = ({isPlaying, country, setWin
         </div>
     );
 };
-
-export default HeaderButtonList;

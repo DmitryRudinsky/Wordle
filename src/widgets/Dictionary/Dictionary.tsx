@@ -1,13 +1,13 @@
 import React from 'react';
 import classes from './Dictionary.module.scss'
 import global from '../../shared/global_styles/_global.module.scss'
-import Clue from "../../shared/ui/Clue/Clue";
+import { Clue } from "../../shared/ui/Clue/Clue";
 
 interface SettingsInterface {
     setWindow: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Dictionary: React.FC<SettingsInterface> = ({setWindow}) => {
+export const Dictionary: React.FC<SettingsInterface> = ({ setWindow }) => {
     return (
         <div className={classes.dictionary}>
             <div className={global.container}>
@@ -18,5 +18,3 @@ const Dictionary: React.FC<SettingsInterface> = ({setWindow}) => {
         </div>
     );
 };
-
-export default Dictionary;

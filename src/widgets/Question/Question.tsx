@@ -1,13 +1,13 @@
 import React from 'react';
 import classes from './Question.module.scss'
 import global from '../../shared/global_styles/_global.module.scss'
-import Clue from "../../shared/ui/Clue/Clue";
+import { Clue } from "../../shared/ui/Clue/Clue";
 
-interface SettingsInterface {
+interface QuestionProps {
     setWindow: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Settings: React.FC<SettingsInterface> = ({setWindow}) => {
+export const Question: React.FC<QuestionProps> = ({ setWindow }) => {
     return (
         <div className={classes.question}>
             <div className={global.container}>
@@ -18,5 +18,3 @@ const Settings: React.FC<SettingsInterface> = ({setWindow}) => {
         </div>
     );
 };
-
-export default Settings;

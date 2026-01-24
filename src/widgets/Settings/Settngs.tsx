@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Settings.module.scss'
 import global from '../../shared/global_styles/_global.module.scss'
-import Clue from "../../shared/ui/Clue/Clue";
+import { Clue } from "../../shared/ui/Clue/Clue";
 
 interface SettingsInterface {
     setWindow: React.Dispatch<React.SetStateAction<string>>;
@@ -9,7 +9,7 @@ interface SettingsInterface {
     lettersCount: number;
 }
 
-const Settings: React.FC<SettingsInterface> = ({setWindow, setLettersCount, lettersCount}) => {
+export const Settings: React.FC<SettingsInterface> = ({ setWindow, setLettersCount, lettersCount }) => {
     return (
         <div className={classes.settings}>
             <div className={global.container}>
@@ -24,5 +24,3 @@ const Settings: React.FC<SettingsInterface> = ({setWindow, setLettersCount, lett
         </div>
     );
 };
-
-export default Settings;

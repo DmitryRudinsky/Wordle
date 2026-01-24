@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './GameButtonList.module.scss'
-import GameButton from "../../shared/ui/GameButton/GameButton";
+import { GameButton } from "../../shared/ui/GameButton/GameButton";
 
 interface GameButtonListInterface {
     lettersCount: number;
 }
 
-const GameButtonList: React.FC<GameButtonListInterface> = ({lettersCount}) => {
+export const GameButtonList: React.FC<GameButtonListInterface> = ({ lettersCount }) => {
 
     const numberOfAttempts = 6
 
@@ -24,5 +24,3 @@ const GameButtonList: React.FC<GameButtonListInterface> = ({lettersCount}) => {
         </div>
     );
 };
-
-export default GameButtonList;

@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import HeaderButtonList from "../../entities/HeaderButtonList/HeaderButtonList.tsx";
+import React, { useState } from 'react';
+import { HeaderButtonList } from "../../entities/HeaderButtonList/HeaderButtonList";
 import styles from './Header.module.scss'
 import global from "../../shared/global_styles/_global.module.scss"
 
@@ -8,8 +8,8 @@ interface Header {
     window: string;
 }
 
-const Header: React.FC<Header> = ({setWindow, window}) => {
-    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+export const Header: React.FC<Header> = ({ setWindow, window }) => {
+    const [isPlaying] = useState<boolean>(false);
 
     return (
         <header className={styles.header}>
@@ -19,5 +19,3 @@ const Header: React.FC<Header> = ({setWindow, window}) => {
         </header>
     );
 };
-
-export default Header;

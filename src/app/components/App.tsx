@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
-import Header from "../widgets/Header/Header.tsx";
-import MainGame from "../widgets/MainGame/MainGame";
-import Settings from "../widgets/Settings/Settngs";
-import Dictionary from "../widgets/Dictionary/Dictionary";
-import AddWord from "../widgets/AddWord/AddWord";
-import Stats from "../widgets/Stats/Stats";
-import Question from "../widgets/Question/Question";
+import { Header } from "@/widgets/Header/Header";
+import { MainGame } from "@/widgets/MainGame/MainGame";
+import { Settings } from "@/widgets/Settings/Settngs";
+import { Dictionary } from "@/widgets/Dictionary/Dictionary";
+import { AddWord } from "@/widgets/AddWord/AddWord";
+import { Stats } from "@/widgets/Stats/Stats";
+import { Question } from "@/widgets/Question/Question";
 import axios from "axios";
 
-function App() {
+export const App = () => {
     const [window, setWindow] = useState<string>('game');
     const [lettersCount, setLettersCount] = useState<number>(5);
-    const [dictionary, setDictionary] = useState<[string]>([]);
-    const [selectedWord, setSelectedWord] = useState<string>('');
-    const mapOfWords = new Map();
+    const [dictionary, setDictionary] = useState<string[]>([]);
+    const [, setSelectedWord] = useState<string>('');
 
     const getData = async () => {
         try {
@@ -29,20 +28,16 @@ function App() {
     }, []);
 
     useEffect(() => {
-        const newMapOfWords = new Map();
+        const mapOfWords = new Map<number, string[]>();
         dictionary.forEach((word) => {
             const length: number = word.length;
-            if (newMapOfWords.has(length)) {
-                const arr: string[] = newMapOfWords.get(length);
+            if (mapOfWords.has(length)) {
+                const arr = mapOfWords.get(length) ?? [];
                 arr.push(word);
-                newMapOfWords.set(length, arr);
+                mapOfWords.set(length, arr);
             } else {
-                newMapOfWords.set(length, [word]);
+                mapOfWords.set(length, [word]);
             }
-        });
-        mapOfWords.clear();
-        newMapOfWords.forEach((value, key) => {
-            mapOfWords.set(key, value);
         });
 
         const selectedDictionary = mapOfWords.get(lettersCount);
@@ -64,6 +59,4 @@ function App() {
             {window === 'question' && <Question setWindow={setWindow} />}
         </main>
     );
-}
-
-export default App;
+};

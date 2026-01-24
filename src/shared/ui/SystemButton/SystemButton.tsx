@@ -10,7 +10,7 @@ interface SystemButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     window: string
 }
 
-const SystemButton: React.FC<SystemButtonProps> = ({ children, isText, textContent, setWindow, option, window, ...props }) => {
+export const SystemButton: React.FC<SystemButtonProps> = ({ children, isText, textContent, setWindow, option, window, ...props }) => {
 
     const changeNavFunction = () => {
         if(window === 'game' || window !== option) {
@@ -22,12 +22,10 @@ const SystemButton: React.FC<SystemButtonProps> = ({ children, isText, textConte
 
     return (
         <button onClick={changeNavFunction} type='button' className={styles.systemButton} {...props}>
-            <div style={isText ? {padding: "7px 5px"} : {}} className={styles.systemButton__inner}>
+            <div style={isText ? { padding: "7px 5px" } : {}} className={styles.systemButton__inner}>
                 {children}
                 {textContent ? <p className={styles.systemButton__text}>{textContent}</p> : <></>}
             </div>
         </button>
     );
 };
-
-export default SystemButton;
