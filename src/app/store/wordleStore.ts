@@ -12,13 +12,10 @@ class WordleStore {
     randomWord: string | null = null;
 
     constructor() {
-        makeAutoObservable(
-            this,
-            {
-                getDictionary: flow.bound,
-                init: flow.bound,
-            },
-        );
+        makeAutoObservable(this, {
+            getDictionary: flow.bound,
+            init: flow.bound,
+        });
 
         this.init();
     }
@@ -60,7 +57,7 @@ class WordleStore {
         this.mapOfWords.clear();
         this.dictionary?.forEach((word) => {
             this.setWord(word);
-        })
+        });
     }
 
     setLanguage(language: lang) {
@@ -109,9 +106,9 @@ class WordleStore {
 
             this.randomWord = null;
             this.setDictionary(dictionary);
-            this.setLoadState('COMPLETE')
+            this.setLoadState('COMPLETE');
             this.sortDictionary();
-            this.setRandomWord()
+            this.setRandomWord();
         } catch (error) {
             console.error(error);
             this.setLoadState('ERROR');

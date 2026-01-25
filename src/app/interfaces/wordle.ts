@@ -21,8 +21,5 @@ export type lang = (typeof SUPPORTED_LANGS)[number];
 export const DEFAULT_LANG: lang = 'ru';
 
 export function isLang(value: unknown): value is lang {
-    return (
-        typeof value === 'string'
-        && (SUPPORTED_LANGS as readonly string[]).includes(value)
-    );
+    return typeof value === 'string' && (SUPPORTED_LANGS as readonly string[]).includes(value);
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import global from '../../shared/global_styles/_global.module.scss'
+import global from '../../shared/global_styles/_global.module.scss';
 import { Clue } from '../../shared/ui/Clue/Clue';
-import classes from './AddWord.module.scss'
+import classes from './AddWord.module.scss';
 
 interface SettingsInterface {
     setWindow: React.Dispatch<React.SetStateAction<string>>;

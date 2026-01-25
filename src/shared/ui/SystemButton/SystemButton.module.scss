@@ -1,28 +1,28 @@
-@import "/src/shared/global_styles/vars";
+@import '/src/shared/global_styles/vars';
 
-.systemButton{
-  background-color: $bg_simple_color;
-  border-radius: 7px;
-  padding: 5px;
-  border: none;
-  color: $text_color;
-  text-align: center;
-  font-weight: 700;
-  margin-right: 12px;
-  transition: all 0.2s;
-  &__inner{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &__text{
+.systemButton {
+    background-color: $bg_simple_color;
+    border-radius: 7px;
+    padding: 5px;
+    border: none;
+    color: $text_color;
+    text-align: center;
+    font-weight: 700;
+    margin-right: 12px;
     transition: all 0.2s;
-    margin-left: 8px;
-  }
-  &:hover{
-    background-color: #e6f3e6;
-    .systemButton__text{
-      color: #57ac57;
+    &__inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-  }
+    &__text {
+        transition: all 0.2s;
+        margin-left: 8px;
+    }
+    &:hover {
+        background-color: #e6f3e6;
+        .systemButton__text {
+            color: #57ac57;
+        }
+    }
 }

@@ -1,8 +1,8 @@
 import { fileURLToPath } from 'node:url';
 
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
-import svgr from 'vite-plugin-svgr'
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
     plugins: [
@@ -18,13 +18,13 @@ export default defineConfig({
             '/api': {
                 target: 'https://wordly.org',
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '')
-            }
-        }
+                rewrite: (path) => path.replace(/^\/api/, ''),
+            },
+        },
     },
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
-        }
-    }
-})
+        },
+    },
+});

@@ -1,18 +1,17 @@
-@import "../../global_styles/vars";
+@import '../../global_styles/vars';
 
-.clue{
-  text-align: center;
-  background-color: $clue_bg;
-  font-weight: 700;
-  border-radius: 7px;
-  padding: 0 25px;
-  position: relative;
-  margin-bottom: 10px;
+.clue {
+    text-align: center;
+    background-color: $clue_bg;
+    font-weight: 700;
+    border-radius: 7px;
+    padding: 0 25px;
+    position: relative;
+    margin-bottom: 10px;
 }
 
 .cross {
-  position: absolute;
-  top: -4px;
-  right: 0;
-
+    position: absolute;
+    top: -4px;
+    right: 0;
 }

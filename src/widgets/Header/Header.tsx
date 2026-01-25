@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import { HeaderButtonList } from '../../entities/HeaderButtonList/HeaderButtonList';
-import global from '../../shared/global_styles/_global.module.scss'
-import styles from './Header.module.scss'
+import global from '../../shared/global_styles/_global.module.scss';
+import styles from './Header.module.scss';
 
 interface Header {
     setWindow: React.Dispatch<React.SetStateAction<string>>;
@@ -15,7 +15,12 @@ export const Header: React.FC<Header> = ({ setWindow, window }) => {
     return (
         <header className={styles.header}>
             <div className={global.container}>
-                <HeaderButtonList setWindow={setWindow} window={window} isPlaying={isPlaying} country='RU'/>
+                <HeaderButtonList
+                    setWindow={setWindow}
+                    window={window}
+                    isPlaying={isPlaying}
+                    country='RU'
+                />
             </div>
         </header>
     );

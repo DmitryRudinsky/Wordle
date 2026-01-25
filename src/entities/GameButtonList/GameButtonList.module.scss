@@ -1,13 +1,13 @@
-.list{
-  display: flex;
-  justify-content: center;
-  &Inner{
+.list {
     display: flex;
-    flex-direction: column;
-  }
+    justify-content: center;
+    &Inner {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
-.row{
-  display: flex;
-  margin-bottom: 5px;
+.row {
+    display: flex;
+    margin-bottom: 5px;
 }
