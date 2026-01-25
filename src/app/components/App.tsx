@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
-import { useState } from 'react';
 
+import { useStores } from '@/app/hooks/useStores.ts';
 import { AddWord } from '@/widgets/AddWord/AddWord';
 import { Dictionary } from '@/widgets/Dictionary/Dictionary';
 import { Header } from '@/widgets/Header/Header';
@@ -10,18 +10,19 @@ import { Settings } from '@/widgets/Settings/Settngs';
 import { Stats } from '@/widgets/Stats/Stats';
 
 export const App = observer(() => {
-    const [window, setWindow] = useState<string>('game');
+    const { windowStore } = useStores();
+    const window = windowStore.window;
 
     return (
         <main className='main'>
-            <Header setWindow={setWindow} window={window} />
+            <Header />
             {window === 'game' && <MainGame />}
-            {window === 'dictionary' && <Dictionary setWindow={setWindow} />}
-            {window === 'add' && <AddWord setWindow={setWindow} />}
+            {window === 'dictionary' && <Dictionary />}
+            {window === 'add' && <AddWord />}
             {window === 'giveUp' && <p>giveUp</p>}
-            {window === 'stats' && <Stats setWindow={setWindow} />}
-            {window === 'settings' && <Settings setWindow={setWindow} />}
-            {window === 'question' && <Question setWindow={setWindow} />}
+            {window === 'stats' && <Stats />}
+            {window === 'settings' && <Settings />}
+            {window === 'question' && <Question />}
         </main>
     );
 });

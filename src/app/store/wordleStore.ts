@@ -3,7 +3,7 @@ import { flow, makeAutoObservable } from 'mobx';
 
 import { DEFAULT_LANG, lang, loadState } from '@/app/interfaces/wordle.ts';
 
-class WordleStore {
+export class WordleStore {
     dictionary: null | string[] = null;
     dictionaryLoadState: loadState | null = null;
     mapOfWords: Map<string, string[]> = new Map<string, string[]>();
@@ -116,4 +116,4 @@ class WordleStore {
     }
 }
 
-export const wordleStore = new WordleStore();
+export type WordleStoreType = InstanceType<typeof WordleStore>;

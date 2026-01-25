@@ -4,23 +4,13 @@ import { HeaderButtonList } from '../../entities/HeaderButtonList/HeaderButtonLi
 import global from '../../shared/global_styles/_global.module.scss';
 import styles from './Header.module.scss';
 
-interface Header {
-    setWindow: React.Dispatch<React.SetStateAction<string>>;
-    window: string;
-}
-
-export const Header: React.FC<Header> = ({ setWindow, window }) => {
+export const Header: React.FC = () => {
     const [isPlaying] = useState<boolean>(false);
 
     return (
         <header className={styles.header}>
             <div className={global.container}>
-                <HeaderButtonList
-                    setWindow={setWindow}
-                    window={window}
-                    isPlaying={isPlaying}
-                    country='RU'
-                />
+                <HeaderButtonList isPlaying={isPlaying} country='RU' />
             </div>
         </header>
     );

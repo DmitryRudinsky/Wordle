@@ -2,11 +2,12 @@ import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 
+import { useStores } from '@/app/hooks/useStores.ts';
 import { isLang } from '@/app/interfaces/wordle';
-import { wordleStore } from '@/app/store/wordleStore';
 
 export const LangGate = observer(() => {
     const { lang } = useParams();
+    const { wordleStore } = useStores();
 
     if (!isLang(lang)) {
         return;
@@ -17,7 +18,7 @@ export const LangGate = observer(() => {
             wordleStore.setLanguage(lang);
             void wordleStore.getDictionary();
         }
-    }, [lang]);
+    }, [lang, wordleStore]);
 
     return <Outlet />;
 });

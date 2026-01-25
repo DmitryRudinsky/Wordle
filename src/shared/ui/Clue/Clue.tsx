@@ -1,18 +1,20 @@
 import React, { ReactNode } from 'react';
 
+import { useStores } from '@/app/hooks/useStores.ts';
+
 import Cross from '../../assets/cross.svg?react';
 import styles from './Clue.module.scss';
 
 interface ClueInterface {
     children: ReactNode;
-    setWindow: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const Clue: React.FC<ClueInterface> = ({ children, setWindow }) => {
+export const Clue: React.FC<ClueInterface> = ({ children }) => {
+    const { windowStore } = useStores();
     return (
         <div className={styles.clue}>
             {children}
-            <div onClick={() => setWindow('game')} className={styles.cross}>
+            <div onClick={() => windowStore.setWindowValue('game')} className={styles.cross}>
                 <Cross />
             </div>
         </div>

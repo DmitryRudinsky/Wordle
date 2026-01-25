@@ -11,45 +11,20 @@ import styles from './HeaderButtonList.module.scss';
 interface ButtonListProps {
     isPlaying: boolean;
     country: string;
-    setWindow: React.Dispatch<React.SetStateAction<string>>;
-    window: string;
 }
 
-export const HeaderButtonList: React.FC<ButtonListProps> = ({
-    isPlaying,
-    country,
-    setWindow,
-    window,
-}) => {
+export const HeaderButtonList: React.FC<ButtonListProps> = ({ isPlaying, country }) => {
     return (
         <div className={styles.buttonList}>
             <div className={styles.buttonList__left}>
-                <SystemButton
-                    isText={false}
-                    textContent={country}
-                    setWindow={setWindow}
-                    option={'dictionary'}
-                    window={window}
-                >
+                <SystemButton isText={false} textContent={country} option={'dictionary'}>
                     <Flag />
                 </SystemButton>
-                <SystemButton
-                    isText={false}
-                    textContent={null}
-                    setWindow={setWindow}
-                    option={'add'}
-                    window={window}
-                >
+                <SystemButton isText={false} textContent={null} option={'add'}>
                     <AddIcon />
                 </SystemButton>
                 {isPlaying ? (
-                    <SystemButton
-                        isText={true}
-                        textContent={null}
-                        setWindow={setWindow}
-                        option={'giveUp'}
-                        window={window}
-                    >
+                    <SystemButton isText={true} textContent={null} option={'giveUp'}>
                         Я сдаюсь
                     </SystemButton>
                 ) : (
@@ -57,31 +32,13 @@ export const HeaderButtonList: React.FC<ButtonListProps> = ({
                 )}
             </div>
             <div className={styles.buttonList__right}>
-                <SystemButton
-                    isText={false}
-                    textContent={null}
-                    setWindow={setWindow}
-                    option={'stats'}
-                    window={window}
-                >
+                <SystemButton isText={false} textContent={null} option={'stats'}>
                     <Stats />
                 </SystemButton>
-                <SystemButton
-                    setWindow={setWindow}
-                    isText={false}
-                    textContent={null}
-                    option={'settings'}
-                    window={window}
-                >
+                <SystemButton isText={false} textContent={null} option={'settings'}>
                     <Settings />
                 </SystemButton>
-                <SystemButton
-                    isText={false}
-                    textContent={null}
-                    setWindow={setWindow}
-                    option={'question'}
-                    window={window}
-                >
+                <SystemButton isText={false} textContent={null} option={'question'}>
                     <Question />
                 </SystemButton>
             </div>

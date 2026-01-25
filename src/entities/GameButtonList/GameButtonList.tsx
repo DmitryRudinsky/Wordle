@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { wordleStore } from '@/app/store/wordleStore';
+import { useStores } from '@/app/hooks/useStores.ts';
 
 import { GameButton } from '../../shared/ui/GameButton/GameButton';
 import styles from './GameButtonList.module.scss';
 
 export const GameButtonList: React.FC = observer(() => {
+    const { wordleStore } = useStores();
     const numberOfAttempts = 6;
     return (
         <div className={styles.list}>

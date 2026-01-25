@@ -1,22 +1,19 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { wordleStore } from '@/app/store/wordleStore';
+import { useStores } from '@/app/hooks/useStores.ts';
 
 import global from '../../shared/global_styles/_global.module.scss';
 import { Clue } from '../../shared/ui/Clue/Clue';
 import classes from './Settings.module.scss';
 
-interface SettingsInterface {
-    setWindow: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export const Settings: React.FC<SettingsInterface> = observer(({ setWindow }) => {
+export const Settings: React.FC = observer(() => {
+    const { wordleStore } = useStores();
     return (
         <div className={classes.settings}>
             <div className={global.container}>
                 <div className={classes.settingsInner}>
-                    <Clue setWindow={setWindow}>Settings</Clue>
+                    <Clue>Settings</Clue>
                     <p>Number of Letters</p>
                     {Array.from({ length: 8 }, (_, index) => (
                         <button
