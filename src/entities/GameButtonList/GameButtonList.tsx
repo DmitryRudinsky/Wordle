@@ -1,21 +1,20 @@
+import { observer } from 'mobx-react';
 import React from 'react';
+
+import { wordleStore } from '@/app/store/wordleStore';
+
+import { GameButton } from '../../shared/ui/GameButton/GameButton';
 import styles from './GameButtonList.module.scss'
-import { GameButton } from "../../shared/ui/GameButton/GameButton";
 
-interface GameButtonListInterface {
-    lettersCount: number;
-}
 
-export const GameButtonList: React.FC<GameButtonListInterface> = ({ lettersCount }) => {
-
+export const GameButtonList: React.FC = observer(() => {
     const numberOfAttempts = 6
-
     return (
         <div className={styles.list}>
             <div className={styles.listInner}>
                 {Array.from({ length: numberOfAttempts }, (_, rowIndex) => (
                     <div key={rowIndex} className={styles.row}>
-                        {Array.from({ length: lettersCount }, (_, colIndex) => (
+                        {Array.from({ length: wordleStore.lettersNumber }, (_, colIndex) => (
                             <GameButton key={colIndex}/>
                         ))}
                     </div>
@@ -23,4 +22,4 @@ export const GameButtonList: React.FC<GameButtonListInterface> = ({ lettersCount
             </div>
         </div>
     );
-};
+});

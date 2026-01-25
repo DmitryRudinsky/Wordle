@@ -1,15 +1,17 @@
+import { observer } from 'mobx-react';
 import React from 'react';
-import classes from './Settings.module.scss'
+
+import { wordleStore } from '@/app/store/wordleStore';
+
 import global from '../../shared/global_styles/_global.module.scss'
-import { Clue } from "../../shared/ui/Clue/Clue";
+import { Clue } from '../../shared/ui/Clue/Clue';
+import classes from './Settings.module.scss'
 
 interface SettingsInterface {
     setWindow: React.Dispatch<React.SetStateAction<string>>;
-    setLettersCount: React.Dispatch<React.SetStateAction<number>>;
-    lettersCount: number;
 }
 
-export const Settings: React.FC<SettingsInterface> = ({ setWindow, setLettersCount, lettersCount }) => {
+export const Settings: React.FC<SettingsInterface> = observer(({ setWindow }) => {
     return (
         <div className={classes.settings}>
             <div className={global.container}>
@@ -17,10 +19,10 @@ export const Settings: React.FC<SettingsInterface> = ({ setWindow, setLettersCou
                     <Clue setWindow={setWindow}>Settings</Clue>
                     <p>Number of Letters</p>
                     {Array.from({ length: 8 }, (_, index) => (
-                        <button onClick={() => setLettersCount(index + 4)} type={"button"} className={lettersCount === index + 4 ? classes.settingsButtonSelected : classes.settingsButton} key={index}>{index + 4}</button>
+                        <button onClick={() => wordleStore.setLettersNumber(index + 4)} type='button' className={wordleStore.lettersNumber === index + 4 ? classes.settingsButtonSelected : classes.settingsButton} key={index}>{index + 4}</button>
                     ))}
                 </div>
             </div>
         </div>
     );
-};
+});

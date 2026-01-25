@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { HeaderButtonList } from "../../entities/HeaderButtonList/HeaderButtonList";
+
+import { HeaderButtonList } from '../../entities/HeaderButtonList/HeaderButtonList';
+import global from '../../shared/global_styles/_global.module.scss'
 import styles from './Header.module.scss'
-import global from "../../shared/global_styles/_global.module.scss"
 
 interface Header {
     setWindow: React.Dispatch<React.SetStateAction<string>>;

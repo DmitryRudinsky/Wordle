@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
-import styles from './Clue.module.scss'
+
 import Cross from '../../assets/cross.svg?react'
+import styles from './Clue.module.scss'
 
 interface ClueInterface {
     children: ReactNode;

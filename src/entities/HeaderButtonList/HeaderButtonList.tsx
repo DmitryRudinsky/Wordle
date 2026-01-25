@@ -1,11 +1,12 @@
 import React from 'react';
-import styles from './HeaderButtonList.module.scss';
-import { SystemButton } from "../../shared/ui/SystemButton/SystemButton";
+
+import { SystemButton } from '../../shared/ui/SystemButton/SystemButton';
 import AddIcon from './assets/add.svg?react';
-import Flag from './assets/RU.svg?react';
-import Stats from  './assets/stats.svg?react';
-import Settings from  './assets/settings.svg?react';
 import Question from  './assets/question.svg?react'
+import Flag from './assets/RU.svg?react';
+import Settings from  './assets/settings.svg?react';
+import Stats from  './assets/stats.svg?react';
+import styles from './HeaderButtonList.module.scss';
 
 
 interface ButtonListProps {
