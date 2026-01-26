@@ -22,8 +22,6 @@ export const GameButtonList = observer(() => {
         [lettersNumber],
     );
 
-    console.debug(rowIndexes, colIndexes);
-
     return (
         <div className={styles.list}>
             <div className={styles.listInner}>
