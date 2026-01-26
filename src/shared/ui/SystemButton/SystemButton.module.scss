@@ -16,8 +16,12 @@
         align-items: center;
     }
     &__text {
+        text-transform: uppercase;
         transition: all 0.2s;
         margin-left: 8px;
+    }
+    &__isText {
+        padding: 7px 5px;
     }
     &:hover {
         background-color: #e6f3e6;

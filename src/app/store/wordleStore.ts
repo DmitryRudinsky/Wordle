@@ -1,17 +1,23 @@
 import axios from 'axios';
 import { flow, makeAutoObservable } from 'mobx';
 
-import { DEFAULT_LANG, lang, loadState } from '@/app/interfaces/wordle.ts';
+import {
+    DEFAULT_LANG,
+    DEFAULT_LENGTH,
+    lang,
+    loadState,
+    WordleStoreDependencies,
+} from '@/app/interfaces/wordle.ts';
 
 export class WordleStore {
     dictionary: null | string[] = null;
     dictionaryLoadState: loadState | null = null;
     mapOfWords: Map<string, string[]> = new Map<string, string[]>();
     language: lang | null = null;
-    lettersNumber: number = 5;
+    lettersNumber: number | null = null;
     randomWord: string | null = null;
 
-    constructor() {
+    constructor(private root: WordleStoreDependencies) {
         makeAutoObservable(this, {
             getDictionary: flow.bound,
             init: flow.bound,
@@ -23,6 +29,10 @@ export class WordleStore {
     *init() {
         if (!this.language) {
             this.setLanguage(DEFAULT_LANG);
+        }
+
+        if (!this.lettersNumber) {
+            this.setLettersNumber(DEFAULT_LENGTH);
         }
 
         if (!this.dictionary || this.dictionaryLoadState === 'ERROR') {
@@ -45,6 +55,10 @@ export class WordleStore {
     }
 
     private setRandomWord() {
+        if (!this.lettersNumber) {
+            return;
+        }
+
         const selectedDictionary = this.mapOfWords.get(this.lettersNumber.toString());
         if (!selectedDictionary) {
             return null;
@@ -69,6 +83,7 @@ export class WordleStore {
         if (this.mapOfWords.size > 0) {
             this.setRandomWord();
         }
+        this.root.mainGameStore.setInitialGuessedLetters(count);
     }
 
     setWord(word: string) {

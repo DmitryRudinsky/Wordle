@@ -1,47 +1,45 @@
+import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import { useStores } from '@/app/hooks/useStores.ts';
 import { windowType } from '@/app/interfaces/window.ts';
+import { selectPageFromHeader } from '@/shared/utils/selectPageFromHeader.ts';
 
 import styles from './SystemButton.module.scss';
 
 interface SystemButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
-    textContent: string | undefined | null;
-    isText: boolean;
+    textContent?: string | null;
+    isText?: boolean;
     option: windowType;
 }
 
 export const SystemButton: React.FC<SystemButtonProps> = observer(
     ({ children, isText, textContent, option, ...props }: SystemButtonProps) => {
         const { windowStore } = useStores();
-        const window = windowStore.window;
-        const changeNavFunction = () => {
-            if (window === 'game' || window !== option) {
-                windowStore.setWindowValue(option);
-            } else if (window === option) {
-                windowStore.setWindowValue('game');
-            }
-        };
 
         return (
             <button
-                onClick={changeNavFunction}
+                onClick={() =>
+                    selectPageFromHeader({
+                        window: windowStore.window,
+                        setWindowValue: (value) => windowStore.setWindowValue(value),
+                        option,
+                    })
+                }
                 type='button'
                 className={styles.systemButton}
                 {...props}
             >
                 <div
-                    style={isText ? { padding: '7px 5px' } : {}}
-                    className={styles.systemButton__inner}
+                    className={classNames(
+                        styles.systemButton__inner,
+                        isText && styles.systemButton__isText,
+                    )}
                 >
                     {children}
-                    {textContent ? (
-                        <p className={styles.systemButton__text}>{textContent}</p>
-                    ) : (
-                        <></>
-                    )}
+                    {textContent && <p className={styles.systemButton__text}>{textContent}</p>}
                 </div>
             </button>
         );

@@ -2,10 +2,9 @@ import { observer } from 'mobx-react';
 import React from 'react';
 
 import { useStores } from '@/app/hooks/useStores.ts';
-
-import global from '../../shared/global_styles/_global.module.scss';
-import { Clue } from '../../shared/ui/Clue/Clue';
-import classes from './Settings.module.scss';
+import global from '@/shared/global_styles/_global.module.scss';
+import { Clue } from '@/shared/ui/Clue/Clue.tsx';
+import classes from '@/widgets/components/Settings/Settings.module.scss';
 
 export const Settings: React.FC = observer(() => {
     const { wordleStore } = useStores();
