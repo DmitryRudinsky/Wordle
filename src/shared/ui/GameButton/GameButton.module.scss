@@ -13,3 +13,15 @@
     align-items: center;
     border-radius: 5px;
 }
+
+.correctPosition {
+    background-color: $correctPosition;
+}
+
+.elseWherePosition {
+    background-color: $elseWherePosition;
+}
+
+.unCorrectLetter {
+    background-color: $un_correctLetter;
+}

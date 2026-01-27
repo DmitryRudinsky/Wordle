@@ -8,6 +8,7 @@ import {
     loadState,
     WordleStoreDependencies,
 } from '@/app/interfaces/wordle.ts';
+import { DEFAULT_MAX_ATTEMPTS } from '@/widgets/interface/mainGame.ts';
 
 export class WordleStore {
     dictionary: null | string[] = null;
@@ -83,7 +84,10 @@ export class WordleStore {
         if (this.mapOfWords.size > 0) {
             this.setRandomWord();
         }
-        this.root.mainGameStore.setInitialGuessedLetters(count);
+        this.root.mainGameStore.setGuessedLetters({
+            lengthOfRows: count,
+            attempts: this.root.mainGameStore.maxNumberOfAttempts ?? DEFAULT_MAX_ATTEMPTS,
+        });
     }
 
     setWord(word: string) {

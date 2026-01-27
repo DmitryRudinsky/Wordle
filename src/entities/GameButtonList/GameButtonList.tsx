@@ -9,16 +9,18 @@ import styles from './GameButtonList.module.scss';
 export const GameButtonList = observer(() => {
     const { wordleStore, mainGameStore } = useStores();
 
+    console.debug('mainGameStore', mainGameStore.guessedLetters);
+
     const numberOfAttempts = Math.max(0, mainGameStore.maxNumberOfAttempts ?? 0);
     const lettersNumber = Math.max(0, wordleStore.lettersNumber ?? 0);
 
     const rowIndexes = useMemo(
-        () => Array.from({ length: numberOfAttempts }, () => ''),
+        () => Array.from({ length: numberOfAttempts }, (_, rowIndex) => rowIndex),
         [numberOfAttempts],
     );
 
     const colIndexes = useMemo(
-        () => Array.from({ length: lettersNumber }, (_, rowIndex) => rowIndex + 1),
+        () => Array.from({ length: lettersNumber }, (_, rowIndex) => rowIndex),
         [lettersNumber],
     );
 
@@ -28,7 +30,11 @@ export const GameButtonList = observer(() => {
                 {rowIndexes.map((rowIndex) => (
                     <div key={rowIndex} className={styles.row}>
                         {colIndexes.map((colIndex) => (
-                            <GameCell key={`cell-${rowIndex}-${colIndex}`} />
+                            <GameCell
+                                key={`cell-${rowIndex}-${colIndex}`}
+                                rowIndex={rowIndex}
+                                colIndex={colIndex}
+                            />
                         ))}
                     </div>
                 ))}
