@@ -2,14 +2,12 @@ import { observer } from 'mobx-react';
 import { useMemo } from 'react';
 
 import { useStores } from '@/app/hooks/useStores';
+import { GameCell } from '@/shared/ui/GameButton/GameCell.tsx';
 
-import { GameCell } from '../../shared/ui/GameButton/GameButton';
 import styles from './GameButtonList.module.scss';
 
 export const GameButtonList = observer(() => {
     const { wordleStore, mainGameStore } = useStores();
-
-    console.debug('mainGameStore', mainGameStore.guessedLetters);
 
     const numberOfAttempts = Math.max(0, mainGameStore.maxNumberOfAttempts ?? 0);
     const lettersNumber = Math.max(0, wordleStore.lettersNumber ?? 0);

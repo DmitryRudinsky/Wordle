@@ -84,7 +84,7 @@ export class WordleStore {
         if (this.mapOfWords.size > 0) {
             this.setRandomWord();
         }
-        this.root.mainGameStore.setGuessedLetters({
+        this.root.mainGameStore.setInitialGuessedLetters({
             lengthOfRows: count,
             attempts: this.root.mainGameStore.maxNumberOfAttempts ?? DEFAULT_MAX_ATTEMPTS,
         });
