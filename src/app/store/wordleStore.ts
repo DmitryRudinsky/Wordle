@@ -5,6 +5,7 @@ import {
     DEFAULT_LANG,
     DEFAULT_LENGTH,
     lang,
+    LANG_TEST_RE,
     loadState,
     WordleStoreDependencies,
 } from '@/app/interfaces/wordle.ts';
@@ -75,6 +76,13 @@ export class WordleStore {
         });
     }
 
+    get regularExpression() {
+        if (!this.language) {
+            return LANG_TEST_RE.ru;
+        }
+        return LANG_TEST_RE[this.language];
+    }
+
     setLanguage(language: lang) {
         this.language = language;
     }
@@ -103,7 +111,8 @@ export class WordleStore {
     }
 
     *getDictionary() {
-        if (!this.language) {
+        const lang = this.language;
+        if (!lang) {
             this.setLoadState('ERROR');
             return;
         }
@@ -111,8 +120,12 @@ export class WordleStore {
         this.setLoadState('LOADING');
         try {
             const response: { data: string[] } = yield axios.get(
-                `/api/files/wordle/${this.language}/dictionary.json?1.26`,
+                `/api/files/wordle/${lang}/dictionary.json?1.26`,
             );
+
+            if (this.language !== lang) {
+                return;
+            }
             const dictionary = response?.data;
 
             if (!(dictionary && dictionary.length)) {

@@ -9,7 +9,7 @@ import styles from './MainGame.module.scss';
 
 export const MainGame: React.FC = observer(() => {
     const { mainGameStore, wordleStore } = useStores();
-    const { mapOfWords: words, randomWord } = wordleStore;
+    const { mapOfWords: words, randomWord, regularExpression } = wordleStore;
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
             if (e.ctrlKey || e.metaKey || e.altKey) {
@@ -41,7 +41,7 @@ export const MainGame: React.FC = observer(() => {
             if (e.key.length !== 1) {
                 return;
             }
-            if (!/^[a-zA-Zа-яА-ЯёЁ]$/.test(e.key)) {
+            if (!regularExpression.test(e.key)) {
                 return;
             }
 
@@ -50,7 +50,7 @@ export const MainGame: React.FC = observer(() => {
 
         window.addEventListener('keydown', onKeyDown);
         return () => window.removeEventListener('keydown', onKeyDown);
-    }, [mainGameStore, wordleStore, words, randomWord]);
+    }, [mainGameStore, wordleStore, words, randomWord, regularExpression]);
 
     return (
         <section className={styles.mainGame}>
