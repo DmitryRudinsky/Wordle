@@ -1,6 +1,6 @@
 import { action, makeAutoObservable } from 'mobx';
 
-import { DEFAULT_MAX_ATTEMPTS } from '@/widgets/interface/mainGame.ts';
+import { DEFAULT_MAX_ATTEMPTS, GameStatus } from '@/widgets/interface/mainGame.ts';
 
 interface LetterState {
     value?: string;
@@ -15,6 +15,7 @@ export class MainGameStore {
     activeRowIndex: number = 0;
     activeColIndex: number = 0;
     pastWords: string[] = [];
+    gameStatus: GameStatus | null = null;
 
     constructor() {
         makeAutoObservable(
@@ -38,6 +39,11 @@ export class MainGameStore {
     init() {
         this.setAttempts(0);
         this.setMaxNumberOfAttempts(DEFAULT_MAX_ATTEMPTS);
+        this.setGameStatus('NOT_STARTED');
+    }
+
+    private setGameStatus(gameStatus: GameStatus) {
+        this.gameStatus = gameStatus;
     }
 
     setInitialGuessedLetters({
@@ -129,7 +135,7 @@ export class MainGameStore {
         this.clearCell({ rowIndex: this.activeRowIndex, colIndex: this.activeColIndex });
     }
 
-    submitWord(words?: Map<string, string[]>) {
+    submitWord({ words, selectedWord }: { words?: Map<string, string[]>; selectedWord: string }) {
         const row = this.guessedLetters[this.activeRowIndex];
 
         if (!row) {
@@ -167,9 +173,63 @@ export class MainGameStore {
             return;
         }
 
+        if (this.activeRowIndex === 0) {
+            this.setGameStatus('STARTED');
+        }
+
+        const normalizedSelectedWord = selectedWord.toLowerCase();
+        const selectedLetters = normalizedSelectedWord.split('');
+
+        const pool: Record<string, number> = {};
+        for (const ch of selectedLetters) {
+            pool[ch] = (pool[ch] ?? 0) + 1;
+        }
+
+        const normalizedGuessLetters = row.map((cell) => (cell.value ?? '').toLowerCase());
+        const result: Array<boolean | null> = Array.from({ length: lettersCount }, () => null);
+
+        for (let colIndex = 0; colIndex < lettersCount; colIndex++) {
+            const letter = normalizedGuessLetters[colIndex];
+            if (!letter) {
+                result[colIndex] = null;
+                continue;
+            }
+            if (selectedLetters[colIndex] === letter) {
+                result[colIndex] = true;
+                pool[letter] -= 1;
+            }
+        }
+
+        for (let colIndex = 0; colIndex < lettersCount; colIndex++) {
+            if (result[colIndex] === true) {
+                continue;
+            }
+            const letter = normalizedGuessLetters[colIndex];
+            if (!letter) {
+                result[colIndex] = null;
+                continue;
+            }
+            if ((pool[letter] ?? 0) > 0) {
+                result[colIndex] = false;
+                pool[letter] -= 1;
+            } else {
+                result[colIndex] = null;
+            }
+        }
+
+        row.forEach((cell, colIndex) => {
+            cell.position = result[colIndex];
+        });
+
+        const isAllLettersInCorrectPositions = row.every((cell) => cell.position === true);
+        if (isAllLettersInCorrectPositions) {
+            this.setGameStatus('COMPLETED_SUCCESSFUL');
+        }
+
         const nextRowIndex = this.activeRowIndex + 1;
         if (nextRowIndex >= this.guessedLetters.length) {
-            console.debug('победа');
+            this.setGameStatus('COMPLETED_FAILURE');
+            return;
         }
 
         this.pastWords.push(guess);

@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
 
 import { useStores } from '@/app/hooks/useStores.ts';
@@ -6,13 +7,19 @@ import globalStyle from '@/shared/global_styles/_global.module.scss';
 
 import styles from './MainGame.module.scss';
 
-export const MainGame: React.FC = () => {
+export const MainGame: React.FC = observer(() => {
     const { mainGameStore, wordleStore } = useStores();
-    const { mapOfWords: words } = wordleStore;
-
+    const { mapOfWords: words, randomWord } = wordleStore;
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
             if (e.ctrlKey || e.metaKey || e.altKey) {
+                return;
+            }
+
+            if (
+                mainGameStore.gameStatus === 'COMPLETED_SUCCESSFUL' ||
+                mainGameStore.gameStatus === 'COMPLETED_FAILURE'
+            ) {
                 return;
             }
 
@@ -23,7 +30,11 @@ export const MainGame: React.FC = () => {
             }
 
             if (e.key === 'Enter') {
-                mainGameStore.submitWord(words);
+                if (!randomWord) {
+                    return;
+                }
+
+                mainGameStore.submitWord({ words, selectedWord: randomWord });
                 return;
             }
 
@@ -34,12 +45,12 @@ export const MainGame: React.FC = () => {
                 return;
             }
 
-            mainGameStore.typeLetter(e.key.toLowerCase());
+            mainGameStore.typeLetter(e.key.toUpperCase());
         };
 
         window.addEventListener('keydown', onKeyDown);
         return () => window.removeEventListener('keydown', onKeyDown);
-    }, [mainGameStore, words]);
+    }, [mainGameStore, wordleStore, words, randomWord]);
 
     return (
         <section className={styles.mainGame}>
@@ -48,4 +59,4 @@ export const MainGame: React.FC = () => {
             </div>
         </section>
     );
-};
+});

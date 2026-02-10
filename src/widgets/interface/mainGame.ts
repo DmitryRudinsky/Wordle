@@ -1,1 +1,3 @@
 export const DEFAULT_MAX_ATTEMPTS = 6;
+
+export type GameStatus = 'COMPLETED_SUCCESSFUL' | 'COMPLETED_FAILURE' | 'STARTED' | 'NOT_STARTED';

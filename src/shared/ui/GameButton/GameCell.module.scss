@@ -1,6 +1,7 @@
 @import '../../global_styles/vars';
 
 .GameCell {
+    --tile-reveal-bg: #{$game_button_neutral};
     width: 56px;
     height: 56px;
     background-color: $game_button_neutral;
@@ -14,14 +15,55 @@
     border-radius: 5px;
 }
 
+.reveal {
+    animation: flipReveal 180ms ease-in-out forwards;
+    will-change: transform, background-color;
+}
+
+@keyframes flipReveal {
+    0% {
+        transform: perspective(700px) rotateX(0deg);
+        background-color: $game_button_neutral;
+    }
+    49% {
+        transform: perspective(700px) rotateX(90deg);
+        background-color: $game_button_neutral;
+    }
+    50% {
+        transform: perspective(700px) rotateX(90deg);
+        background-color: var(--tile-reveal-bg);
+    }
+    100% {
+        transform: perspective(700px) rotateX(0deg);
+        background-color: var(--tile-reveal-bg);
+    }
+}
+
 .correctPosition {
-    background-color: $correctPosition;
+    --tile-reveal-bg: #{$correctPosition};
 }
 
 .elseWherePosition {
-    background-color: $elseWherePosition;
+    --tile-reveal-bg: #{$elseWherePosition};
 }
 
 .unCorrectLetter {
-    background-color: $un_correctLetter;
+    --tile-reveal-bg: #{$un_correctLetter};
+}
+
+.activeCell {
+    border: 2px solid $border_active;
+    animation: popIn 120ms ease-out;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(1);
+    }
+    55% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
