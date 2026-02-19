@@ -110,6 +110,15 @@ export class WordleStore {
         }
     }
 
+    restartGame() {
+        if (!this.lettersNumber) {
+            return;
+        }
+
+        this.setRandomWord();
+        this.root.mainGameStore.restart(this.lettersNumber);
+    }
+
     *getDictionary() {
         const lang = this.language;
         if (!lang) {

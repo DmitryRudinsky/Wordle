@@ -30,6 +30,7 @@ export class MainGameStore {
                 backspace: action.bound,
                 clearCell: action.bound,
                 submitWord: action.bound,
+                restart: action.bound,
             },
             { autoBind: true },
         );
@@ -235,6 +236,17 @@ export class MainGameStore {
         this.pastWords.push(guess);
         this.setCursor(nextRowIndex, 0);
         this.setAttempts(nextRowIndex);
+    }
+
+    restart(lengthOfRows: number) {
+        const attempts = this.maxNumberOfAttempts ?? DEFAULT_MAX_ATTEMPTS;
+        this.pastWords = [];
+        this.setAttempts(0);
+        this.setGameStatus('NOT_STARTED');
+        this.setInitialGuessedLetters({
+            attempts,
+            lengthOfRows,
+        });
     }
 }
 

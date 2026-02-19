@@ -2,14 +2,13 @@ import { observer } from 'mobx-react';
 import React from 'react';
 
 import { useStores } from '@/app/hooks/useStores.ts';
-import { SystemButton } from '@/shared/ui/SystemButton/SystemButton';
-
-import AddIcon from './assets/add.svg?react';
-import Question from './assets/question.svg?react';
-import Flag from './assets/RU.svg?react';
-import Settings from './assets/settings.svg?react';
-import Stats from './assets/stats.svg?react';
-import styles from './HeaderButtonList.module.scss';
+import AddIcon from '@/entities/components/HeaderButtonList/assets/add.svg?react';
+import Question from '@/entities/components/HeaderButtonList/assets/question.svg?react';
+import Flag from '@/entities/components/HeaderButtonList/assets/RU.svg?react';
+import Settings from '@/entities/components/HeaderButtonList/assets/settings.svg?react';
+import Stats from '@/entities/components/HeaderButtonList/assets/stats.svg?react';
+import styles from '@/entities/components/HeaderButtonList/HeaderButtonList.module.scss';
+import { SystemButton } from '@/shared/ui/SystemButton/SystemButton.tsx';
 
 export const HeaderButtonList: React.FC = observer(() => {
     const { mainGameStore, wordleStore } = useStores();

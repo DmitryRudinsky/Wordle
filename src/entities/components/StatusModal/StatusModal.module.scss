@@ -1,0 +1,81 @@
+@import '@/shared/global_styles/vars';
+
+.successModal {
+    &Header {
+        background-color: $header_modal;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        padding: 10px 0;
+        margin-bottom: 12px;
+    }
+
+    &Suggest {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &Title {
+            font-weight: 500;
+        }
+
+        &Word {
+            padding: 10px 14px;
+            border-radius: 6px;
+            background-color: $header_text;
+            border: 1px dashed $text_color;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 15px;
+        }
+    }
+
+    &Body {
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &Title {
+        font-size: 1.3rem;
+    }
+
+    &Hint {
+        font-size: 0.9rem;
+        font-weight: 200;
+    }
+
+    &TryAgainButton {
+        cursor: pointer;
+        border: none;
+        padding: 10px 12px;
+        background-color: $selected_button;
+        border-radius: 6px;
+        font-size: 1.2rem;
+        color: white;
+        font-weight: bold;
+        align-self: center;
+        margin-bottom: 4px;
+        transition: 0.3s;
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    &CloseButton {
+        cursor: pointer;
+        background: transparent;
+        position: absolute;
+        top: 5px;
+        right: 0;
+        border: none;
+        &:hover {
+            svg path {
+                fill: #414a5e;
+            }
+        }
+    }
+}

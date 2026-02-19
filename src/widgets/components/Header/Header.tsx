@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeaderButtonList } from '@/entities/HeaderButtonList/HeaderButtonList.tsx';
+import { HeaderButtonList } from '@/entities/components/HeaderButtonList/HeaderButtonList.tsx';
 import global from '@/shared/global_styles/_global.module.scss';
 import styles from '@/widgets/components/Header/Header.module.scss';
 

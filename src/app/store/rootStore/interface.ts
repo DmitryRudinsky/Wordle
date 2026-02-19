@@ -1,3 +1,4 @@
+import type { ModalStoreType } from '@/entities/store/modalStore';
 import type { MainGameStoreType } from '@/widgets/store/mainGameStore.ts';
 
 import type { WindowStoreType } from '../windowStore';
@@ -7,4 +8,5 @@ export interface RootStore {
     windowStore: WindowStoreType;
     wordleStore: WordleStoreType;
     mainGameStore: MainGameStoreType;
+    modalStore: ModalStoreType;
 }

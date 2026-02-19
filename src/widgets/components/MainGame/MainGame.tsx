@@ -2,14 +2,19 @@ import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
 
 import { useStores } from '@/app/hooks/useStores.ts';
-import { GameButtonList } from '@/entities/GameButtonList/GameButtonList.tsx';
+import { GameButtonList } from '@/entities/components/GameButtonList/GameButtonList.tsx';
+import { ModalStatus } from '@/entities/components/StatusModal/StatusModal.tsx';
 import globalStyle from '@/shared/global_styles/_global.module.scss';
 
 import styles from './MainGame.module.scss';
 
 export const MainGame: React.FC = observer(() => {
-    const { mainGameStore, wordleStore } = useStores();
+    const { mainGameStore, wordleStore, modalStore } = useStores();
     const { mapOfWords: words, randomWord, regularExpression } = wordleStore;
+    const { gameStatus } = mainGameStore;
+
+    console.debug(wordleStore);
+
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
             if (e.ctrlKey || e.metaKey || e.altKey) {
@@ -20,6 +25,10 @@ export const MainGame: React.FC = observer(() => {
                 mainGameStore.gameStatus === 'COMPLETED_SUCCESSFUL' ||
                 mainGameStore.gameStatus === 'COMPLETED_FAILURE'
             ) {
+                if (e.key === 'Enter') {
+                    wordleStore.restartGame();
+                    modalStore.closeStatusModal();
+                }
                 return;
             }
 
@@ -56,6 +65,7 @@ export const MainGame: React.FC = observer(() => {
         <section className={styles.mainGame}>
             <div className={globalStyle.container}>
                 <GameButtonList />
+                <ModalStatus gameStatus={gameStatus} />
             </div>
         </section>
     );
