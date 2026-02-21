@@ -21,6 +21,10 @@ export class AnimationStore {
     getKeyboardRevealDelay(lettersNumber: number): number {
         return this.REVEAL_ANIMATION_MS * lettersNumber;
     }
+
+    getTotalAnimationTime(lettersNumber: number): number {
+        return this.getKeyboardRevealDelay(lettersNumber) + this.BACKGROUND_TRANSITION_MS;
+    }
 }
 
 export type AnimationStoreType = AnimationStore;

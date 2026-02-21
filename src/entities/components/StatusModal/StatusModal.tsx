@@ -4,24 +4,25 @@ import React, { useEffect } from 'react';
 import { useStores } from '@/app/hooks/useStores.ts';
 import Cross from '@/shared/assets/cross.svg?react';
 import { Modal } from '@/shared/ui/Modal/Modal.tsx';
-import { GameStatus } from '@/widgets/interface/mainGame.ts';
 
 import styles from './StatusModal.module.scss';
 
-interface ModalStatusProps {
-    gameStatus: GameStatus | null;
-}
-
-export const ModalStatus: React.FC<ModalStatusProps> = observer(({ gameStatus }) => {
-    const { wordleStore, modalStore } = useStores();
+export const ModalStatus: React.FC = observer(() => {
+    const { wordleStore, modalStore, mainGameStore, animationStore } = useStores();
     const { randomWord } = wordleStore;
     const { isStatusModalActive } = modalStore;
+    const { gameStatus } = mainGameStore;
     const isGameFinished =
         gameStatus === 'COMPLETED_FAILURE' || gameStatus === 'COMPLETED_SUCCESSFUL';
+    const animationDelay = animationStore.getTotalAnimationTime(wordleStore.lettersNumber ?? 0);
 
     useEffect(() => {
-        modalStore.setStatusModalActive(isGameFinished);
-    }, [isGameFinished, modalStore]);
+        const timeoutId = setTimeout(() => {
+            modalStore.setStatusModalActive(isGameFinished);
+        }, animationDelay);
+
+        return () => clearTimeout(timeoutId);
+    }, [animationDelay, isGameFinished, modalStore]);
 
     if (!isGameFinished) {
         return;

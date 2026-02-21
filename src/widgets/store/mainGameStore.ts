@@ -223,7 +223,9 @@ export class MainGameStore {
 
         const nextRowIndex = this.activeRowIndex + 1;
         if (nextRowIndex >= this.guessedLetters.length) {
-            this.setGameStatus('COMPLETED_FAILURE');
+            if (!isAllLettersInCorrectPositions) {
+                this.setGameStatus('COMPLETED_FAILURE');
+            }
             return;
         }
 

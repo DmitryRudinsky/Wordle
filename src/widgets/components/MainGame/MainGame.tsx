@@ -12,7 +12,6 @@ import styles from './MainGame.module.scss';
 export const MainGame: React.FC = observer(() => {
     const { mainGameStore, wordleStore, modalStore } = useStores();
     const { mapOfWords: words, randomWord, regularExpression } = wordleStore;
-    const { gameStatus } = mainGameStore;
 
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
@@ -64,7 +63,7 @@ export const MainGame: React.FC = observer(() => {
         <section className={styles.mainGame}>
             <div className={globalStyle.container}>
                 <GameButtonList />
-                <ModalStatus gameStatus={gameStatus} />
+                <ModalStatus />
                 <KeyBoard />
             </div>
         </section>
