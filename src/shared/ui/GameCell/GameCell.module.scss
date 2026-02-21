@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 .reveal {
@@ -49,6 +49,10 @@
 
 .unCorrectLetter {
     --tile-reveal-bg: #{$un_correctLetter};
+}
+
+.revealed {
+    background-color: var(--tile-reveal-bg);
 }
 
 .activeCell {

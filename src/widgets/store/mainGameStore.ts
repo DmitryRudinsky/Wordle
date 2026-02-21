@@ -1,4 +1,4 @@
-import { action, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 import { DEFAULT_MAX_ATTEMPTS, GameStatus } from '@/widgets/interface/mainGame.ts';
 
@@ -10,7 +10,7 @@ interface LetterState {
 export class MainGameStore {
     attempts: number | null = null;
     maxNumberOfAttempts: number | null = null;
-    isPlaying: boolean = false;
+    usedLetters: Record<string, boolean | null> = {};
     guessedLetters: LetterState[][] = [];
     activeRowIndex: number = 0;
     activeColIndex: number = 0;
@@ -18,22 +18,7 @@ export class MainGameStore {
     gameStatus: GameStatus | null = null;
 
     constructor() {
-        makeAutoObservable(
-            this,
-            {
-                init: action.bound,
-                setInitialGuessedLetters: action.bound,
-                setAttempts: action.bound,
-                setMaxNumberOfAttempts: action.bound,
-                setCursor: action.bound,
-                typeLetter: action.bound,
-                backspace: action.bound,
-                clearCell: action.bound,
-                submitWord: action.bound,
-                restart: action.bound,
-            },
-            { autoBind: true },
-        );
+        makeAutoObservable(this);
         this.init();
     }
 
@@ -198,6 +183,9 @@ export class MainGameStore {
             if (selectedLetters[colIndex] === letter) {
                 result[colIndex] = true;
                 pool[letter] -= 1;
+                if (this.usedLetters && !this.usedLetters[letter]) {
+                    this.usedLetters[letter] = true;
+                }
             }
         }
 
@@ -213,8 +201,14 @@ export class MainGameStore {
             if ((pool[letter] ?? 0) > 0) {
                 result[colIndex] = false;
                 pool[letter] -= 1;
+                if (this.usedLetters && !this.usedLetters[letter]) {
+                    this.usedLetters[letter] = false;
+                }
             } else {
                 result[colIndex] = null;
+                if (this.usedLetters && !this.usedLetters[letter]) {
+                    this.usedLetters[letter] = null;
+                }
             }
         }
 
@@ -241,6 +235,7 @@ export class MainGameStore {
     restart(lengthOfRows: number) {
         const attempts = this.maxNumberOfAttempts ?? DEFAULT_MAX_ATTEMPTS;
         this.pastWords = [];
+        this.usedLetters = {};
         this.setAttempts(0);
         this.setGameStatus('NOT_STARTED');
         this.setInitialGuessedLetters({

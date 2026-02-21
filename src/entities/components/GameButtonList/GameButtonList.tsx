@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import { useMemo } from 'react';
 
 import { useStores } from '@/app/hooks/useStores';
-import { GameCell } from '@/shared/ui/GameButton/GameCell.tsx';
+import { GameCell } from '@/shared/ui/GameCell/GameCell.tsx';
 
 import styles from './GameButtonList.module.scss';
 

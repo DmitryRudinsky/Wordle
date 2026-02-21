@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 
 import { useStores } from '@/app/hooks/useStores.ts';
 import { GameButtonList } from '@/entities/components/GameButtonList/GameButtonList.tsx';
+import { KeyBoard } from '@/entities/components/KeyBoard/KeyBoard.tsx';
 import { ModalStatus } from '@/entities/components/StatusModal/StatusModal.tsx';
 import globalStyle from '@/shared/global_styles/_global.module.scss';
 
@@ -12,8 +13,6 @@ export const MainGame: React.FC = observer(() => {
     const { mainGameStore, wordleStore, modalStore } = useStores();
     const { mapOfWords: words, randomWord, regularExpression } = wordleStore;
     const { gameStatus } = mainGameStore;
-
-    console.debug(wordleStore);
 
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
@@ -59,13 +58,14 @@ export const MainGame: React.FC = observer(() => {
 
         window.addEventListener('keydown', onKeyDown);
         return () => window.removeEventListener('keydown', onKeyDown);
-    }, [mainGameStore, wordleStore, words, randomWord, regularExpression]);
+    }, [mainGameStore, wordleStore, words, randomWord, regularExpression, modalStore]);
 
     return (
         <section className={styles.mainGame}>
             <div className={globalStyle.container}>
                 <GameButtonList />
                 <ModalStatus gameStatus={gameStatus} />
+                <KeyBoard />
             </div>
         </section>
     );

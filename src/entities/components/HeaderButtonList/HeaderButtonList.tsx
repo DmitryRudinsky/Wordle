@@ -21,7 +21,7 @@ export const HeaderButtonList: React.FC = observer(() => {
                 <SystemButton option={'add'}>
                     <AddIcon />
                 </SystemButton>
-                {mainGameStore.isPlaying ? (
+                {mainGameStore.gameStatus === 'STARTED' ? (
                     <SystemButton option={'giveUp'}>Я сдаюсь</SystemButton>
                 ) : (
                     <></>
