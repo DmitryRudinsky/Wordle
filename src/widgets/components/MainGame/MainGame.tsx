@@ -2,7 +2,9 @@ import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
 
 import { useStores } from '@/app/hooks/useStores.ts';
+import { ChallengeModal } from '@/entities/components/ChallengeModal/ChallengeModal.tsx';
 import { GameButtonList } from '@/entities/components/GameButtonList/GameButtonList.tsx';
+import { GiveUpModal } from '@/entities/components/GiveUpModal/GiveUpModal.tsx';
 import { KeyBoard } from '@/entities/components/KeyBoard/KeyBoard.tsx';
 import { ModalStatus } from '@/entities/components/StatusModal/StatusModal.tsx';
 import globalStyle from '@/shared/global_styles/_global.module.scss';
@@ -64,6 +66,8 @@ export const MainGame: React.FC = observer(() => {
             <div className={globalStyle.container}>
                 <GameButtonList />
                 <ModalStatus />
+                <GiveUpModal />
+                <ChallengeModal />
                 <KeyBoard />
             </div>
         </section>

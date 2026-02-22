@@ -28,7 +28,7 @@ export class MainGameStore {
         this.setGameStatus('NOT_STARTED');
     }
 
-    private setGameStatus(gameStatus: GameStatus) {
+    setGameStatus(gameStatus: GameStatus) {
         this.gameStatus = gameStatus;
     }
 

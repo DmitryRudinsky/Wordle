@@ -1,0 +1,36 @@
+@import '/src/shared/global_styles/vars';
+
+.actionButton {
+    background-color: $bg_simple_color;
+    border-radius: 7px;
+    padding: 5px;
+    border: none;
+    color: $text_color;
+    text-align: center;
+    font-weight: 700;
+    margin-right: 12px;
+    transition: all 0.2s;
+    &__inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &__text {
+        text-transform: uppercase;
+        transition: all 0.2s;
+        margin-left: 8px;
+    }
+    &__isText {
+        padding: 7px 5px;
+    }
+    &:hover:not(:disabled) {
+        background-color: #e6f3e6;
+        .actionButton__text {
+            color: #57ac57;
+        }
+    }
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
