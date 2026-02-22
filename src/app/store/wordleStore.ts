@@ -117,6 +117,7 @@ export class WordleStore {
 
         this.setRandomWord();
         this.root.mainGameStore.restart(this.lettersNumber);
+        this.root.statsStore.clearLastGameId();
     }
 
     *getDictionary() {

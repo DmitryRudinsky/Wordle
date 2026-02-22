@@ -4,14 +4,14 @@ import React from 'react';
 import { useStores } from '@/app/hooks/useStores.ts';
 import global from '@/shared/global_styles/_global.module.scss';
 import { Clue } from '@/shared/ui/Clue/Clue.tsx';
-import classes from '@/widgets/components/Settings/Settings.module.scss';
+import styles from '@/widgets/components/Settings/Settings.module.scss';
 
 export const Settings: React.FC = observer(() => {
     const { wordleStore } = useStores();
     return (
-        <div className={classes.settings}>
+        <div className={styles.settings}>
             <div className={global.container}>
-                <div className={classes.settingsInner}>
+                <div className={styles.settingsInner}>
                     <Clue>Settings</Clue>
                     <p>Number of Letters</p>
                     {Array.from({ length: 8 }, (_, index) => (
@@ -20,8 +20,8 @@ export const Settings: React.FC = observer(() => {
                             type='button'
                             className={
                                 wordleStore.lettersNumber === index + 4
-                                    ? classes.settingsButtonSelected
-                                    : classes.settingsButton
+                                    ? styles.settingsButtonSelected
+                                    : styles.settingsButton
                             }
                             key={index}
                         >

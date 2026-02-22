@@ -7,7 +7,9 @@
     padding: 0 15px;
 }
 
-.lastRow {
-    display: flex;
-    gap: 8px;
+.last {
+    &Row {
+        display: flex;
+        gap: 8px;
+    }
 }

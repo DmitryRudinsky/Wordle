@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useAnimationRefs } from '@/app/hooks/useAnimationRefs.ts';
 import { useStores } from '@/app/hooks/useStores.ts';
-import classes from '@/shared/ui/GameCell/GameCell.module.scss';
+import styles from '@/shared/ui/GameCell/GameCell.module.scss';
 
 interface GameButtonProps {
     rowIndex: number;
@@ -31,13 +31,13 @@ export const GameCell: React.FC<GameButtonProps> = observer(({ rowIndex, colInde
             key={`${rowIndex}-${colIndex}`}
             id={`gameCell_${rowIndex}_${colIndex}`}
             style={revealStyle}
-            className={classNames(classes.GameCell, {
-                [classes.reveal]: shouldPlayAnimation,
-                [classes.revealed]: shouldReveal && hasAnimatedRef.current,
-                [classes[animationStore.LETTER_STATES.CORRECT]]: cellPosition === true,
-                [classes[animationStore.LETTER_STATES.ELSEWHERE]]: cellPosition === false,
-                [classes[animationStore.LETTER_STATES.INCORRECT]]: cellPosition === null,
-                [classes.activeCell]: cellValue && !shouldReveal,
+            className={classNames(styles.GameCell, {
+                [styles.reveal]: shouldPlayAnimation,
+                [styles.revealed]: shouldReveal && hasAnimatedRef.current,
+                [styles[animationStore.LETTER_STATES.CORRECT]]: cellPosition === true,
+                [styles[animationStore.LETTER_STATES.ELSEWHERE]]: cellPosition === false,
+                [styles[animationStore.LETTER_STATES.INCORRECT]]: cellPosition === null,
+                [styles.activeCell]: cellValue && !shouldReveal,
             })}
         >
             {cellValue}

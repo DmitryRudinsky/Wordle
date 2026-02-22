@@ -1,4 +1,52 @@
+@import '../../../shared/global_styles/vars';
+
 .dictionary {
     &Inner {
+        text-align: center;
+        font-weight: 700;
+
+        > p {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
     }
+}
+
+.language {
+    &Grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    &Button {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        height: 60px;
+        font-size: 18px;
+        line-height: 32px;
+        padding: 0 20px;
+        background-color: $bg_simple_color;
+        border: none;
+        border-radius: 5px;
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        &Selected {
+            background-color: $selected_button;
+        }
+    }
+}
+
+.flag {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
 }

@@ -1,4 +1,118 @@
-.Stats {
+@import '../../../shared/global_styles/vars';
+
+.stats {
     &Inner {
+        padding: 20px 0;
     }
+
+    &Grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+.stat {
+    &Card {
+        text-align: center;
+        padding: 15px;
+        background-color: $bg_simple_color;
+        border-radius: 8px;
+    }
+
+    &Value {
+        font-size: 32px;
+        font-weight: 700;
+        color: $text_color;
+        margin-bottom: 5px;
+    }
+
+    &Label {
+        font-size: 14px;
+        color: #666;
+        font-weight: 500;
+    }
+}
+
+.shareButton {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: $selected_button;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 30px;
+
+    &:hover {
+        background-color: #57ac57;
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.distribution {
+    &Title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-align: center;
+        color: $text_color;
+    }
+
+    &Bars {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.bar {
+    &Row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &Label {
+        font-size: 16px;
+        font-weight: 600;
+        min-width: 20px;
+        text-align: center;
+        color: $text_color;
+    }
+
+    &Container {
+        flex: 1;
+        height: 30px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    &Value {
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 0 8px;
+        line-height: 30px;
+    }
+}
+
+.bar {
+    height: 100%;
+    background-color: $selected_button;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    transition: width 0.3s ease;
+    min-width: 40px;
+    border-radius: 8px;
 }

@@ -1,4 +1,71 @@
+@import '../../../shared/global_styles/vars';
+
 .question {
     &Inner {
+        padding: 20px 0;
     }
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.intro {
+    font-size: 16px;
+    color: $text_color;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: $text_color;
+    margin-bottom: 15px;
+}
+
+.text {
+    font-size: 16px;
+    color: $text_color;
+    margin-bottom: 15px;
+}
+
+.rules {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.rule {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: $bg_simple_color;
+    border-radius: 8px;
+}
+
+.emoji {
+    font-size: 24px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.ruleText {
+    font-size: 16px;
+    color: $text_color;
+    line-height: 1.5;
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+.footer {
+    font-size: 16px;
+    color: $text_color;
+    text-align: center;
+    margin-top: 25px;
+    font-weight: 600;
 }

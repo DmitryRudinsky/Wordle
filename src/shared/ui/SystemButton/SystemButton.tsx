@@ -18,6 +18,7 @@ interface SystemButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const SystemButton: React.FC<SystemButtonProps> = observer(
     ({ children, isText, textContent, option, ...props }: SystemButtonProps) => {
         const { windowStore } = useStores();
+        const isActive = windowStore.window === option;
 
         return (
             <button
@@ -29,7 +30,7 @@ export const SystemButton: React.FC<SystemButtonProps> = observer(
                     })
                 }
                 type='button'
-                className={styles.systemButton}
+                className={classNames(styles.systemButton, isActive && styles.systemButton__active)}
                 {...props}
             >
                 <div

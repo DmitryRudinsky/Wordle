@@ -10,23 +10,54 @@
     font-weight: 700;
     margin-right: 12px;
     transition: all 0.2s;
+
     &__inner {
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
     &__text {
         text-transform: uppercase;
         transition: all 0.2s;
         margin-left: 8px;
     }
+
     &__isText {
+        &__active {
+            background-color: $header_modal;
+            color: $text_color;
+
+            .systemButton__text {
+                color: $text_color;
+            }
+        }
+
         padding: 7px 5px;
     }
+
+    .systemButton__text {
+        color: $text_color;
+    }
+
     &:hover {
         background-color: #e6f3e6;
+
         .systemButton__text {
             color: #57ac57;
+        }
+    }
+
+    .active {
+        background-color: $header_modal;
+        color: $text_color;
+
+        &:hover {
+            background-color: #d0e8d0;
+
+            .systemButton__text {
+                color: $text_color;
+            }
         }
     }
 }

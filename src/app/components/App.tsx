@@ -3,13 +3,15 @@ import React from 'react';
 
 import { useStores } from '@/app/hooks/useStores.ts';
 import { windowType } from '@/app/interfaces/window.ts';
-import { AddWord } from '@/widgets/components/AddWord/AddWord.tsx';
 import { Dictionary } from '@/widgets/components/Dictionary/Dictionary.tsx';
+import { Footer } from '@/widgets/components/Footer/Footer.tsx';
 import { Header } from '@/widgets/components/Header/Header';
 import { MainGame } from '@/widgets/components/MainGame/MainGame.tsx';
 import { Question } from '@/widgets/components/Question/Question.tsx';
 import { Settings } from '@/widgets/components/Settings/Settngs.tsx';
 import { Stats } from '@/widgets/components/Stats/Stats.tsx';
+
+import styles from './App.module.scss';
 
 interface RenderScreenProps {
     window: windowType;
@@ -29,10 +31,6 @@ export const App = observer(() => {
                 return <MainGame />;
             case 'dictionary':
                 return <Dictionary />;
-            case 'add':
-                return <AddWord />;
-            case 'giveUp':
-                return <p>give up</p>;
             case 'stats':
                 return <Stats />;
             case 'settings':
@@ -45,9 +43,10 @@ export const App = observer(() => {
     };
 
     return (
-        <main className='main'>
+        <div className={styles.app}>
             <Header />
-            {renderScreen({ window })}
-        </main>
+            <div className={styles.appContent}>{renderScreen({ window })}</div>
+            <Footer />
+        </div>
     );
 });

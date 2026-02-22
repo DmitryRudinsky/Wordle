@@ -8,10 +8,10 @@ import { Modal } from '@/shared/ui/Modal/Modal.tsx';
 import styles from './StatusModal.module.scss';
 
 export const ModalStatus: React.FC = observer(() => {
-    const { wordleStore, modalStore, mainGameStore, animationStore } = useStores();
+    const { wordleStore, modalStore, mainGameStore, animationStore, statsStore } = useStores();
     const { randomWord } = wordleStore;
     const { isStatusModalActive } = modalStore;
-    const { gameStatus } = mainGameStore;
+    const { gameStatus, attempts } = mainGameStore;
     const isGameFinished =
         gameStatus === 'COMPLETED_FAILURE' || gameStatus === 'COMPLETED_SUCCESSFUL';
     const animationDelay = animationStore.getTotalAnimationTime(wordleStore.lettersNumber ?? 0);
@@ -23,11 +23,18 @@ export const ModalStatus: React.FC = observer(() => {
                 (gameStatus === 'COMPLETED_FAILURE' || gameStatus === 'COMPLETED_SUCCESSFUL')
             ) {
                 modalStore.setStatusModalActive(isGameFinished);
+
+                if (isGameFinished) {
+                    statsStore.addGameResult({
+                        won: gameStatus === 'COMPLETED_SUCCESSFUL',
+                        attempts: (attempts ?? 0) + 1,
+                    });
+                }
             }
         }, animationDelay);
 
         return () => clearTimeout(timeoutId);
-    }, [animationDelay, isGameFinished, modalStore, gameStatus]);
+    }, [animationDelay, isGameFinished, modalStore, gameStatus, statsStore, attempts]);
 
     if (!isGameFinished) {
         return;

@@ -1,3 +1,4 @@
+import type { StatsStoreType } from '@/app/store/statsStore';
 import type { MainGameStoreType } from '@/widgets/store/mainGameStore.ts';
 
 export type loadState = 'LOADING' | 'COMPLETE' | 'ERROR';
@@ -16,36 +17,42 @@ export const SUPPORTED_LANGS = [
     'sv',
     'tr',
     'id',
+    'cs',
+    'fi',
 ] as const;
 
 export type lang = (typeof SUPPORTED_LANGS)[number];
 
 export const LANG_TEST_RE = {
-    en: /^[A-Za-z\s\-’']*$/u,
+    en: /^[A-Za-z\s\-'']*$/u,
 
-    uk: /^[АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя\s\-’']*$/u,
+    uk: /^[АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя\s\-'']*$/u,
 
-    es: /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ¿¡\s\-’']*$/u,
+    es: /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ¿¡\s\-'']*$/u,
 
-    fr: /^[A-Za-zÀÂÆÇÉÈÊËÎÏÔŒÙÛÜŸàâæçéèêëîïôœùûüÿ\s\-’']*$/u,
+    fr: /^[A-Za-zÀÂÆÇÉÈÊËÎÏÔŒÙÛÜŸàâæçéèêëîïôœùûüÿ\s\-'']*$/u,
 
-    de: /^[A-Za-zÄÖÜẞäöüß\s\-’']*$/u,
+    de: /^[A-Za-zÄÖÜẞäöüß\s\-'']*$/u,
 
-    pt: /^[A-Za-zÁÀÂÃÇÉÊÍÓÔÕÚÜáàâãçéêíóôõúü\s\-’']*$/u,
+    pt: /^[A-Za-zÁÀÂÃÇÉÊÍÓÔÕÚÜáàâãçéêíóôõúü\s\-'']*$/u,
 
-    it: /^[A-Za-zÀÈÉÌÍÎÒÓÙàèéìíîòóù\s\-’']*$/u,
+    it: /^[A-Za-zÀÈÉÌÍÎÒÓÙàèéìíîòóù\s\-'']*$/u,
 
-    nl: /^[A-Za-zĲĳËÏëï\s\-’']*$/u,
+    nl: /^[A-Za-zĲĳËÏëï\s\-'']*$/u,
 
-    ru: /^[А-Яа-яЁё\s\-’']*$/u,
+    ru: /^[А-Яа-яЁё\s\-'']*$/u,
 
-    pl: /^[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż\s\-’']*$/u,
+    pl: /^[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż\s\-'']*$/u,
 
-    sv: /^[A-Za-zÅÄÖåäö\s\-’']*$/u,
+    sv: /^[A-Za-zÅÄÖåäö\s\-'']*$/u,
 
-    tr: /^[A-Za-zÇĞİIÖŞÜçğıöşü\s\-’']*$/u,
+    tr: /^[A-Za-zÇĞİIÖŞÜçğıöşü\s\-'']*$/u,
 
-    id: /^[A-Za-z\s\-’']*$/u,
+    id: /^[A-Za-z\s\-'']*$/u,
+
+    cs: /^[A-Za-zÁČĎÉĚÍŇÓŘŠŤÚŮÝŽáčďéěíňóřšťúůýž\s\-'']*$/u,
+
+    fi: /^[A-Za-zÅÄÖåäö\s\-'']*$/u,
 } satisfies Record<lang, RegExp>;
 
 export const DEFAULT_LANG: lang = 'ru';
@@ -57,4 +64,5 @@ export function isLang(value: unknown): value is lang {
 
 export interface WordleStoreDependencies {
     mainGameStore: MainGameStoreType;
+    statsStore: StatsStoreType;
 }

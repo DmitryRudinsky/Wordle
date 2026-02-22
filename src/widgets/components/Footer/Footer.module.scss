@@ -1,0 +1,27 @@
+@import '../../../shared/global_styles/vars';
+
+.footer {
+    background-color: $bg_simple_color;
+    padding: 20px 0;
+    border-top: 2px solid $border_neutral;
+
+    &Inner {
+        text-align: center;
+    }
+
+    &Text {
+        font-size: 16px;
+        color: $text_color;
+        margin: 0 0 5px 0;
+
+        strong {
+            font-weight: 700;
+        }
+    }
+
+    &Year {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+    }
+}
