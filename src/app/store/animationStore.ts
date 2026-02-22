@@ -7,6 +7,9 @@ export class AnimationStore {
     readonly REVEAL_ANIMATION_MS = 180;
     readonly BACKGROUND_TRANSITION_MS = 500;
 
+    private animatedKeys = new Map<string, boolean | null>();
+    private lastResetGameStatus: GameStatus | null = null;
+
     constructor() {
         makeAutoObservable(this);
     }
@@ -29,23 +32,59 @@ export class AnimationStore {
         return this.getKeyboardRevealDelay(lettersNumber) + this.BACKGROUND_TRANSITION_MS;
     }
 
+    hasKeyAnimated(letterKey: string): boolean {
+        return this.animatedKeys.has(letterKey);
+    }
+
+    getKeyAnimationState(letterKey: string): boolean | null {
+        if (!this.animatedKeys.has(letterKey)) {
+            return null;
+        }
+        return this.animatedKeys.get(letterKey) ?? null;
+    }
+
+    markKeyAsAnimated(letterKey: string, state: boolean | null): void {
+        const currentState = this.animatedKeys.get(letterKey);
+        const shouldUpdate =
+            currentState === undefined ||
+            (currentState === null && state !== null) ||
+            (currentState === false && state === true);
+
+        if (shouldUpdate) {
+            this.animatedKeys.set(letterKey, state);
+        }
+    }
+
+    resetKeyAnimations(): void {
+        this.animatedKeys.clear();
+        this.lastResetGameStatus = 'NOT_STARTED';
+    }
+
     mutationAnimationRef({
         gameStatus,
         hasAnimatedRef,
         gameStatusRef,
     }: {
         gameStatus: GameStatus | null;
-        hasAnimatedRef: React.MutableRefObject<boolean>;
+        hasAnimatedRef: React.MutableRefObject<boolean | null>;
         gameStatusRef: React.MutableRefObject<GameStatus | null>;
     }) {
         if (!hasAnimatedRef || !gameStatusRef || !gameStatus) {
             return;
         }
-        if (gameStatus === 'NOT_STARTED' && gameStatusRef.current !== 'NOT_STARTED') {
-            hasAnimatedRef.current = false;
+        if (
+            gameStatus === 'NOT_STARTED' &&
+            gameStatusRef.current !== 'NOT_STARTED' &&
+            this.lastResetGameStatus !== gameStatus
+        ) {
+            hasAnimatedRef.current = null;
             gameStatusRef.current = gameStatus;
+            this.resetKeyAnimations();
         } else if (gameStatus !== gameStatusRef.current) {
             gameStatusRef.current = gameStatus;
+            if (gameStatus !== 'NOT_STARTED' && this.lastResetGameStatus === 'NOT_STARTED') {
+                this.lastResetGameStatus = null;
+            }
         }
     }
 }

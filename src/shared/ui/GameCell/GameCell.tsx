@@ -20,7 +20,7 @@ export const GameCell: React.FC<GameButtonProps> = observer(({ rowIndex, colInde
     const cellPosition = cell?.position;
     const shouldReveal = cellPosition !== undefined;
 
-    const { hasAnimatedRef, shouldPlayAnimation } = useAnimationRefs(gameStatus, shouldReveal);
+    const { hasAnimatedRef, shouldPlayAnimation } = useAnimationRefs({ gameStatus, shouldReveal });
 
     const revealStyle = shouldPlayAnimation
         ? { animationDelay: `${animationStore.getRevealDelay(colIndex)}ms` }

@@ -21,7 +21,20 @@ export const KeyButton: React.FC<KeyButtonProps> = observer(({ children, action 
     const letterUsedState = usedLetters?.[letterKey];
     const shouldReveal = letterUsedState !== undefined && action === 'letter';
 
-    const { shouldPlayAnimation } = useAnimationRefs(gameStatus, shouldReveal);
+    const { shouldPlayAnimation } = useAnimationRefs({
+        gameStatus,
+        shouldReveal,
+        letterUsedState,
+        letterKey: action === 'letter' ? letterKey : undefined,
+    });
+
+    const hasAnimated =
+        letterKey && action === 'letter' ? animationStore.hasKeyAnimated(letterKey) : false;
+
+    const savedLetterState =
+        letterKey && action === 'letter' && hasAnimated
+            ? animationStore.getKeyAnimationState(letterKey)
+            : letterUsedState;
 
     const handleClick = () => {
         if (action === 'backspace') {
@@ -49,9 +62,10 @@ export const KeyButton: React.FC<KeyButtonProps> = observer(({ children, action 
             className={classNames(styles.keyButton, {
                 [styles.wide]: action === 'backspace' || action === 'enter',
                 [styles.reveal]: shouldPlayAnimation,
-                [styles[animationStore.LETTER_STATES.CORRECT]]: letterUsedState === true,
-                [styles[animationStore.LETTER_STATES.ELSEWHERE]]: letterUsedState === false,
-                [styles[animationStore.LETTER_STATES.INCORRECT]]: letterUsedState === null,
+                [styles.revealed]: shouldReveal && hasAnimated,
+                [styles[animationStore.LETTER_STATES.CORRECT]]: savedLetterState === true,
+                [styles[animationStore.LETTER_STATES.ELSEWHERE]]: savedLetterState === false,
+                [styles[animationStore.LETTER_STATES.INCORRECT]]: savedLetterState === null,
             })}
             onClick={handleClick}
         >

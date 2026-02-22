@@ -32,6 +32,10 @@
     background-color: var(--tile-reveal-bg);
 }
 
+.revealed {
+    background-color: var(--tile-reveal-bg);
+}
+
 .correctPosition {
     --tile-reveal-bg: #{$correctPosition};
 }
