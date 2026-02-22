@@ -18,11 +18,13 @@ export const useAnimationRefs = ({
     const hasAnimatedRef = useRef<boolean | null>(null);
     const gameStatusRef = useRef(gameStatus);
 
-    animationStore.mutationAnimationRef({
-        gameStatus,
-        gameStatusRef,
-        hasAnimatedRef,
-    });
+    useEffect(() => {
+        animationStore.mutationAnimationRef({
+            gameStatus,
+            gameStatusRef,
+            hasAnimatedRef,
+        });
+    }, [gameStatus, animationStore]);
 
     useEffect(() => {
         if (shouldReveal && letterKey) {
