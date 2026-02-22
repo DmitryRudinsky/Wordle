@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React from 'react';
 
+import { useAnimationRefs } from '@/app/hooks/useAnimationRefs.ts';
 import { useStores } from '@/app/hooks/useStores.ts';
 
 import styles from './KeyButton.module.scss';
@@ -13,12 +14,14 @@ interface KeyButtonProps {
 
 export const KeyButton: React.FC<KeyButtonProps> = observer(({ children, action = 'letter' }) => {
     const { mainGameStore, animationStore, wordleStore } = useStores();
-    const { usedLetters } = mainGameStore;
+    const { usedLetters, gameStatus } = mainGameStore;
     const { randomWord, mapOfWords: words } = wordleStore;
 
     const letterKey = typeof children === 'string' ? children : '';
     const letterUsedState = usedLetters?.[letterKey];
     const shouldReveal = letterUsedState !== undefined && action === 'letter';
+
+    const { shouldPlayAnimation } = useAnimationRefs(gameStatus, shouldReveal);
 
     const handleClick = () => {
         if (action === 'backspace') {
@@ -45,7 +48,7 @@ export const KeyButton: React.FC<KeyButtonProps> = observer(({ children, action 
             style={revealStyle}
             className={classNames(styles.keyButton, {
                 [styles.wide]: action === 'backspace' || action === 'enter',
-                [styles.reveal]: shouldReveal,
+                [styles.reveal]: shouldPlayAnimation,
                 [styles[animationStore.LETTER_STATES.CORRECT]]: letterUsedState === true,
                 [styles[animationStore.LETTER_STATES.ELSEWHERE]]: letterUsedState === false,
                 [styles[animationStore.LETTER_STATES.INCORRECT]]: letterUsedState === null,

@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
+import { useAnimationRefs } from '@/app/hooks/useAnimationRefs.ts';
 import { useStores } from '@/app/hooks/useStores.ts';
 import classes from '@/shared/ui/GameCell/GameCell.module.scss';
 
@@ -12,21 +13,14 @@ interface GameButtonProps {
 
 export const GameCell: React.FC<GameButtonProps> = observer(({ rowIndex, colIndex }) => {
     const { mainGameStore, animationStore } = useStores();
-    const { guessedLetters } = mainGameStore;
+    const { guessedLetters, gameStatus } = mainGameStore;
 
     const cell = guessedLetters[rowIndex]?.[colIndex];
     const cellValue = cell?.value ?? '';
     const cellPosition = cell?.position;
     const shouldReveal = cellPosition !== undefined;
 
-    const hasAnimatedRef = useRef(false);
-    const shouldPlayAnimation = shouldReveal && !hasAnimatedRef.current;
-
-    useEffect(() => {
-        if (shouldReveal && !hasAnimatedRef.current) {
-            hasAnimatedRef.current = true;
-        }
-    }, [shouldReveal]);
+    const { hasAnimatedRef, shouldPlayAnimation } = useAnimationRefs(gameStatus, shouldReveal);
 
     const revealStyle = shouldPlayAnimation
         ? { animationDelay: `${animationStore.getRevealDelay(colIndex)}ms` }
