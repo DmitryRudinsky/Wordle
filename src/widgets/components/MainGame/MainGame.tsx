@@ -14,6 +14,7 @@ import styles from './MainGame.module.scss';
 export const MainGame: React.FC = observer(() => {
     const { mainGameStore, wordleStore, modalStore } = useStores();
     const { mapOfWords: words, randomWord, regularExpression } = wordleStore;
+    const justRestartedRef = React.useRef(false);
 
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
@@ -26,9 +27,19 @@ export const MainGame: React.FC = observer(() => {
                 mainGameStore.gameStatus === 'COMPLETED_FAILURE'
             ) {
                 if (e.key === 'Enter') {
+                    e.preventDefault();
+                    justRestartedRef.current = true;
+                    setTimeout(() => {
+                        justRestartedRef.current = false;
+                    }, 500);
                     wordleStore.restartGame();
                     modalStore.closeStatusModal();
                 }
+                return;
+            }
+
+            if (justRestartedRef.current) {
+                e.preventDefault();
                 return;
             }
 

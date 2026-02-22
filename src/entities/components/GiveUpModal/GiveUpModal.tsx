@@ -10,12 +10,25 @@ import styles from './GiveUpModal.module.scss';
 export const GiveUpModal: React.FC = observer(() => {
     const { modalStore, mainGameStore } = useStores();
     const { isGiveUpModalActive } = modalStore;
+    const timeoutIdRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const handleConfirm = () => {
+        if (!isGiveUpModalActive || mainGameStore.gameStatus !== 'STARTED') {
+            return;
+        }
+
         mainGameStore.setGameStatus('COMPLETED_FAILURE');
         modalStore.closeGiveUpModal();
-        setTimeout(() => {
-            modalStore.setStatusModalActive(true);
+
+        if (timeoutIdRef.current !== null) {
+            clearTimeout(timeoutIdRef.current);
+        }
+
+        timeoutIdRef.current = setTimeout(() => {
+            if (mainGameStore.gameStatus === 'COMPLETED_FAILURE') {
+                modalStore.setStatusModalActive(true);
+            }
+            timeoutIdRef.current = null;
         }, 100);
     };
 

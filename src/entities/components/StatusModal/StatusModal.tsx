@@ -18,11 +18,16 @@ export const ModalStatus: React.FC = observer(() => {
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            modalStore.setStatusModalActive(isGameFinished);
+            if (
+                isGameFinished ===
+                (gameStatus === 'COMPLETED_FAILURE' || gameStatus === 'COMPLETED_SUCCESSFUL')
+            ) {
+                modalStore.setStatusModalActive(isGameFinished);
+            }
         }, animationDelay);
 
         return () => clearTimeout(timeoutId);
-    }, [animationDelay, isGameFinished, modalStore]);
+    }, [animationDelay, isGameFinished, modalStore, gameStatus]);
 
     if (!isGameFinished) {
         return;
