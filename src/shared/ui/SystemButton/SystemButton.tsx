@@ -1,10 +1,8 @@
 import classNames from 'classnames';
-import { observer } from 'mobx-react';
 import React, { ButtonHTMLAttributes, ReactNode } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useStores } from '@/app/hooks/useStores.ts';
-import { windowType } from '@/app/interfaces/window.ts';
-import { selectPageFromHeader } from '@/shared/utils/selectPageFromHeader.ts';
+import { screenRoute } from '@/app/interfaces/window.ts';
 
 import styles from './SystemButton.module.scss';
 
@@ -12,37 +10,41 @@ interface SystemButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
     textContent?: string | null;
     isText?: boolean;
-    option: windowType;
+    option: screenRoute;
 }
 
-export const SystemButton: React.FC<SystemButtonProps> = observer(
-    ({ children, isText, textContent, option, ...props }: SystemButtonProps) => {
-        const { windowStore } = useStores();
-        const isActive = windowStore.window === option;
+export const SystemButton: React.FC<SystemButtonProps> = ({
+    children,
+    isText,
+    textContent,
+    option,
+    ...props
+}) => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const optionPath = `/${option}`;
+    const isActive = location.pathname === optionPath;
 
-        return (
-            <button
-                onClick={() =>
-                    selectPageFromHeader({
-                        window: windowStore.window,
-                        setWindowValue: (value) => windowStore.setWindowValue(value),
-                        option,
-                    })
-                }
-                type='button'
-                className={classNames(styles.systemButton, isActive && styles.systemButton__active)}
-                {...props}
+    const handleClick = () => {
+        navigate(isActive ? '/' : optionPath);
+    };
+
+    return (
+        <button
+            onClick={handleClick}
+            type='button'
+            className={classNames(styles.systemButton, isActive && styles.systemButton__active)}
+            {...props}
+        >
+            <div
+                className={classNames(
+                    styles.systemButton__inner,
+                    isText && styles.systemButton__isText,
+                )}
             >
-                <div
-                    className={classNames(
-                        styles.systemButton__inner,
-                        isText && styles.systemButton__isText,
-                    )}
-                >
-                    {children}
-                    {textContent && <p className={styles.systemButton__text}>{textContent}</p>}
-                </div>
-            </button>
-        );
-    },
-);
+                {children}
+                {textContent && <p className={styles.systemButton__text}>{textContent}</p>}
+            </div>
+        </button>
+    );
+};

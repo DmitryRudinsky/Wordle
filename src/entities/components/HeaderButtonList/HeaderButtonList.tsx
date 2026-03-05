@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { useStores } from '@/app/hooks/useStores.ts';
 import AddIcon from '@/entities/components/HeaderButtonList/assets/add.svg?react';
@@ -12,9 +13,9 @@ import { ActionButton } from '@/shared/ui/ActionButton/ActionButton.tsx';
 import { SystemButton } from '@/shared/ui/SystemButton/SystemButton.tsx';
 
 export const HeaderButtonList: React.FC = observer(() => {
-    const { mainGameStore, wordleStore, modalStore, windowStore } = useStores();
-    const { window } = windowStore;
-    const isGameWindow = window === 'game';
+    const { mainGameStore, wordleStore, modalStore } = useStores();
+    const location = useLocation();
+    const isGameWindow = location.pathname === '/';
 
     const handleGiveUpClick = () => {
         modalStore.setGiveUpModalActive(true);

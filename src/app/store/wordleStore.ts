@@ -19,18 +19,21 @@ export class WordleStore {
     lettersNumber: number | null = null;
     randomWord: string | null = null;
 
-    constructor(private root: WordleStoreDependencies) {
+    constructor(
+        private root: WordleStoreDependencies,
+        initialLang: lang | null,
+    ) {
         makeAutoObservable(this, {
             getDictionary: flow.bound,
             init: flow.bound,
         });
 
-        this.init();
+        this.init(initialLang);
     }
 
-    *init() {
+    *init(initialLang: lang | null) {
         if (!this.language) {
-            this.setLanguage(DEFAULT_LANG);
+            this.setLanguage(initialLang ?? DEFAULT_LANG);
         }
 
         if (!this.lettersNumber) {

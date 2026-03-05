@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 import { useStores } from '@/app/hooks/useStores.ts';
 import { lang, SUPPORTED_LANGS } from '@/app/interfaces/wordle.ts';
@@ -28,12 +28,16 @@ const LANG_LABELS: Record<lang, string> = {
     fi: 'Suomi',
 };
 
+const COOKIE_MAX_AGE_1_YEAR = 60 * 60 * 24 * 365;
+
 export const Dictionary: React.FC = observer(() => {
     const { wordleStore } = useStores();
-    const navigate = useNavigate();
+    const cookies = new Cookies();
 
     const handleLanguageChange = (language: lang) => {
-        navigate(`/${language}`);
+        cookies.set('lang', language, { path: '/', maxAge: COOKIE_MAX_AGE_1_YEAR });
+        wordleStore.setLanguage(language);
+        void wordleStore.getDictionary();
     };
 
     return (

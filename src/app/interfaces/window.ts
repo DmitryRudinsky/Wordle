@@ -1,8 +1,1 @@
-export type windowType =
-    | 'game'
-    | 'dictionary'
-    | 'add'
-    | 'giveUp'
-    | 'stats'
-    | 'settings'
-    | 'question';
+export type screenRoute = 'dictionary' | 'stats' | 'settings' | 'question';
